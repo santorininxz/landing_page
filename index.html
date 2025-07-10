@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Curso completo sobre Desenvolvimento de Sistemas - lógica booleana, sistemas operacionais, segurança e mais.">
+    <title>Curso de Desenvolvimento de Sistemas | Guia Completo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #F0FFFF;
+            color: #333;
+        }
+
+        /* MENU FIXO */
+        .menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 10px 30px;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+            transition: background 0.3s ease;
+        }
+
+        .menu-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+        }
+
+        /* Botão hamburguer - escondido no desktop */
+        #menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Ícone do botão hamburguer */
+        #menu-toggle svg {
+            display: block;
+        }
+
+        /* Links do menu */
+        #menu-links {
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        #menu-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: color 0.3s;
+        }
+
+        #menu-links a:hover,
+        #menu-links a:focus {
+            color: #ff7f00;
+            background-color: rgba(255, 127, 0, 0.15);
+            outline: none;
+        }
+
+        /* RESPONSIVIDADE - telas menores que 768px */
+        @media (max-width: 768px) {
+
+            /* Mostrar botão hamburguer */
+            #menu-toggle {
+                display: block;
+                margin-right: 10px;
+            }
+
+            /* Esconder links inicialmente */
+            #menu-links {
+                display: none;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.9);
+                position: fixed;
+                top: 60px;
+                /* abaixo do menu */
+                right: 0;
+                width: 220px;
+                padding: 20px;
+                border-radius: 0 0 0 8px;
+                box-shadow: -3px 0 8px rgba(0, 0, 0, 0.3);
+                z-index: 1500;
+            }
+
+            /* Mostrar links quando aberto */
+            #menu-links.open {
+                display: flex;
+            }
+
+            /* Ajuste dos links no menu mobile */
+            #menu-links a {
+                padding: 12px 10px;
+                font-size: 1.1rem;
+            }
+
+            /* Ajuste no container para alinhar itens */
+            .menu-container {
+                justify-content: flex-start;
+            }
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #4b0082, #3a3a8d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .btn-scroll {
+            background-color: #ff7f00;
+            color: white;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s;
+        }
+
+        .btn-scroll:hover {
+            background-color: #e06700;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-colored-bg {
+            background: #F0FFFF;
+            padding: 60px 20px;
+            border-radius: 8px;
+            margin: 40px 0;
+            color: #4b0082;
+        }
+
+        .text-center {
+            text-align: justify;
+        }
+
+        .max-widht {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #4b0082;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            width: 60px;
+            height: 3px;
+            background-color: #ff7f00;
+            display: block;
+            margin: 10px auto 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #4b0082;
+            margin-top: 15px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        .card p {
+            font-size: 0.98rem;
+            margin-top: 10px;
+        }
+
+        .icon {
+            color: #ff7f00;
+            width: 32px;
+            height: 32px;
+        }
+
+        .form-section {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .form-section h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #4b0082;
+        }
+
+        .form-section p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        iframe {
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 100%;
+            height: 600px;
+        }
+
+        /* CONTATO */
+        #contato {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        #contato p a {
+            text-decoration: none;
+            color: #4b0082;
+        }
+
+        #contato p a:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER NOVO */
+        footer {
+            background-color: #2a004d;
+            color: white;
+            text-align: left;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 40px 20px;
+        }
+
+        footer h3 {
+            margin-bottom: 10px;
+            color: #ffbb50;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin: 6px 0;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        footer .copyright {
+            text-align: center;
+            padding: 20px 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .btn-scroll {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .card h2 {
+                font-size: 1.1rem;
+            }
+
+            .card p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="menu" role="navigation" aria-label="Menu principal">
+        <div class="menu-container">
+            <button id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-links">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" viewBox="0 0 24 24"
+                    role="img" aria-hidden="true">
+                    <path d="M3 6h18M3 12h18M3 18h18" stroke="#fff" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div id="menu-links">
+                <a href="#inicio">Início</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#conteudo">Conteúdo</a>
+                <a href="#inscricao">Inscrição</a>
+                <a href="#contato">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Domine os Fundamentos da Computação</h1>
+            <p>Curso completo em Desenvolvimento de Sistemas — lógica, software, redes e proteção digital para formar a
+                base
+                da sua carreira.</p>
+            <a href="#conteudo" class="btn-scroll">Ver Conteúdo</a>
+        </div>
+    </header>
+
+    <div class="section-colored-bg">
+        <section id="sobre" class="container">
+            <h2 class="section-title">Sobre o Curso</h2>
+            <div class="section-content text-center max-width">
+                <p>
+                    O Curso de Desenvolvimento de Sistemas foi cuidadosamente elaborado para oferecer uma base sólida e
+                    abrangente a todos que desejam ingressar ou se aprofundar no universo da tecnologia. Ele é ideal
+                    para iniciantes, entusiastas e até mesmo para quem deseja migrar de carreira e adquirir
+                    conhecimentos técnicos essenciais para atuar na área de TI.
+                </p>
+                <p>
+                    Ao longo do curso, o aluno será guiado por uma trilha de aprendizado progressiva, iniciando pela
+                    lógica computacional, que é o alicerce para entender como os sistemas funcionam e como resolver
+                    problemas com raciocínio estruturado. Em seguida, o conteúdo evolui para aspectos mais práticos,
+                    como a programação de sistemas, bancos de dados, desenvolvimento web, além de abordar conceitos
+                    importantes sobre arquitetura de software e modelagem de dados.
+                </p>
+                <p>
+                    Outro diferencial deste curso é a inclusão de noções fundamentais de segurança digital, uma
+                    competência cada vez mais valorizada no mercado de trabalho, especialmente diante do crescimento de
+                    ataques cibernéticos e da necessidade de proteger dados e informações.
+                </p>
+                <p>
+                    Mais do que simplesmente ensinar a programar, o curso tem como objetivo desenvolver uma visão
+                    completa do ciclo de desenvolvimento de sistemas, preparando o aluno para atuar em equipes de
+                    desenvolvimento, participar de projetos de software ou até mesmo criar suas próprias soluções
+                    tecnológicas.
+                </p>
+                <p>
+                    Com uma metodologia clara, linguagem acessível e foco na prática, este curso é o ponto de partida
+                    ideal para quem deseja construir uma carreira sólida e promissora na área de desenvolvimento de
+                    sistemas.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <main id="conteudo" class="container">
+        <h2 class="section-title">Conteúdo do Curso</h2>
+        <div class="grid">
+            <section class="card">
+                <i data-lucide="code" class="icon"></i>
+                <h2>Lógica Booleana</h2>
+                <p>Compreenda como funciona a base da computação moderna com operadores lógicos, circuitos e
+                    expressões
+                    booleanas.</p>
+            </section>
+
+            <section class="card">
+                <i data-lucide="cpu" class="icon"></i>
+                <h2>Sistemas Operacionais</h2>
+                <p>Aprenda como Windows e Linux gerenciam recursos, arquivos, processos e segurança por trás da
+                    interface.</p>
+            </section>
+
+            <section class="card">
+                <i data-lucide="app-window" class="icon"></i>
+                <h2>Softwares e Aplicativos</h2>
+                <p>Conheça os tipos de software, suas funções e como utilizá-los com eficiência no dia a dia.</p>
+            </section>
+
+            <section class="card">
+                <i data-lucide="brackets" class="icon"></i>
+                <h2>Programação e Algoritmos</h2>
+                <p>Entenda a lógica da programação criando seus primeiros algoritmos com clareza e simplicidade.</p>
+            </section>
+
+            <section class="card">
+                <i data-lucide="shield" class="icon"></i>
+                <h2>Limpeza e Proteção</h2>
+                <p>Mantenha seu sistema seguro com antivírus, firewalls, backups e limpeza de arquivos
+                    desnecessários.</p>
+            </section>
+
+            <section class="card">
+                <i data-lucide="wifi" class="icon"></i>
+                <h2>Noções de Redes</h2>
+                <p>Descubra como funcionam as redes de computadores, conexões, protocolos e diagnósticos comuns.</p>
+            </section>
+            <section class="card">
+                <i data-lucide="globe" class="icon"></i>
+                <h2>Tecnologia da Informação</h2>
+                <p>Entenda como funciona os níveis de gerenciamento de um sistema de informações e como analisá-las.</p>
+            </section>
+
+            <section class="card">
+                <i data-lucide="folder" class="icon"></i>
+                <h2>Microsoft Windows</h2>
+                <p>Aprenda a dominar os conceitos principais do <b>Windows 10 e 11</b>, incluindo suas configurações,
+                    gerenciamento de arquivos, instalações de programas e integração com serviços em nuvem. </p>
+            </section>
+
+            <section class="card">
+                <i data-lucide="presentation" class="icon"></i>
+                <h2>Microsoft Power Point e Word </h2>
+                <p> <span style="color: gray"> <i>Adicione texto.</i></span></p>
+            </section>
+
+            <section class="card">
+                <i data-lucide="table" class="icon"></i>
+                <h2>Microsoft Excel</h2>
+                <p> <span style="color: gray"><i>Adicione texto.</i></span></p>
+            </section>
+
+        </div>
+
+        <section id="inscricao" class="form-section">
+            <h2>Inscreva-se no Curso</h2>
+            <p>Preencha o formulário abaixo e receba informações exclusivas sobre o curso diretamente no seu e-mail.
+            </p>
+            <iframe src="https://forms.gle/mfifEV9zeEEATke4A" allowfullscreen>Carregando…</iframe>
+        </section>
+    </main>
+    </div>
+
+    <section id="contato" class="container">
+        <h2 class="section-title">Contato</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                Tem alguma dúvida? Entre em contato conosco por e-mail ou redes sociais:
+            </p>
+            <p style="font-size: 1.05rem;">
+                <i data-lucide="mail" class="icon" style="vertical-align: middle;"></i>
+                <a href="mailto:andressampjf@gmail.com?subject=Texto%20de%20exemplo">
+                    Entre em contato
+                </a>
+
+            </p>
+            <p style="font-size: 1.05rem;">
+                <i data-lucide="instagram" class="icon" style="vertical-align: middle;"></i>
+                <a href="instagram://user?username=seuperfil"
+                    onclick="setTimeout(function(){ window.location = 'https:www.instagram.com/andressa.https/'; }, 1000);">
+                    Ver perfil no Instagram
+                </a>
+
+            </p>
+            <p style="font-size: 1.05rem;">
+                <i data-lucide="phone" class="icon" style="vertical-align: middle;"></i>
+                (11) 91234-5678
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid container">
+            <div>
+                <h3>Sobre o Curso</h3>
+                <p style="font-size: 0.95rem;">
+                    Curso introdutório em Desenvolvimento de Sistemas com foco em lógica, redes, software e proteção
+                    digital. Ideal
+                    para iniciantes.
+                </p>
+            </div>
+
+            <div>
+                <h3>Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#conteudo">Conteúdo</a></li>
+                    <li><a href="#inscricao">Inscrição</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Contato</h3>
+                <p style="font-size: 0.95rem;"><i data-lucide="mail" class="icon" style="vertical-align: middle;"></i>
+                    santorinidev@gmail.com</p>
+                <p style="font-size: 0.95rem;"><i data-lucide="phone" class="icon" style="vertical-align: middle;"></i>
+                    (11)
+                    91234-5678</p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2025 Curso de Desenvolvimento de Sistemas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuLinks = document.getElementById('menu-links');
+
+        menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+            menuToggle.setAttribute('aria-expanded', !expanded);
+            menuLinks.classList.toggle('open');
+        });
+
+        // Fecha menu clicando fora
+        document.addEventListener('click', (e) => {
+            if (!menuLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                menuLinks.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', false);
+            }
+        });
+    </script>
+    <script>
+        import { config } from '@fortawesome/fontawesome-svg-core'
+        config.autoA11y = true
+    </script>
+
+</body>
+
+</html>

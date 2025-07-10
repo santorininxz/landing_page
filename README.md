@@ -1,4 +1,5 @@
 # landing_page
+ 💻 # link para o site: https://santorininxz.github.io/landing_page/
 ## Landing Page da Disciplina Tecnologia e Sistemas de Informação
 ### Descrição do Projeto
 Este projeto consiste em uma Landing Page desenvolvida para divulgar um treinamento sobre a disciplina Tecnologia e Sistemas de Informação. A página foi criada para ser moderna, funcional e visualmente atrativa, com o objetivo de captar o interesse dos visitantes e incentivá-los a se inscrever no treinamento.

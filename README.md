@@ -1,4 +1,4 @@
-# landing_page
+# landing_page Fundamentos da Computação
 link para o site: https://santorininxz.github.io/landing_page/
 ## Landing Page da Disciplina Tecnologia e Sistemas de Informação
 ### Descrição do Projeto
